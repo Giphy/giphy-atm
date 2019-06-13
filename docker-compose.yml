@@ -1,0 +1,6 @@
+version: '3'
+services:
+    giphyatm:
+        image: python:3.5
+        volumes:
+            - .:/code:cached
