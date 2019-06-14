@@ -5,7 +5,6 @@ import random
 import string
 import logging
 import json
-import httplib2
 import requests
 
 from helpers.poem_generate import PoemService
@@ -14,9 +13,10 @@ from helpers.giphy_client import GiphyClient
 app = Flask(__name__)
 
 
-@app.route('/poem', methods=['POST'])
+@app.route('/poem', methods=['GET'])
 def generate_poem():
-    query = request.get_json()['query']
+    print('asdkasdjknasjkdnakjsndkjasndkjasndjknasjkdnasjkdnajk')
+    query = request.args.get('query')
 
     if not request.data:
         abort(400)
@@ -25,8 +25,9 @@ def generate_poem():
     list_of_tags = giphy_client.get_search_tags(query)
 
     poem_instance = PoemService()
-    poem_instance.pass_query_to_model(list_of_tags)
-    return jsonify(list_of_tags)
+    poem = poem_instance.pass_query_to_model(list_of_tags, 25)
+
+    return jsonify({"data": poem})
 
 
 if __name__ == '__main__':

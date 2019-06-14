@@ -4,3 +4,13 @@ services:
         image: python:3.5
         volumes:
             - .:/code:cached
+        ports:
+            - '8000:8000'
+        command:
+            - /bin/bash
+            - -c
+            - |
+                pip install flask
+                pip install requests
+                pip install tensorflow==1.0.0
+                python /code/flask-start/app.py
