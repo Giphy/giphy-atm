@@ -20,9 +20,13 @@ def pick_word(probabilities, int_to_vocab):
 
 
 def call_model(prime_words, gen_length):
+    print('call_model prime_words: {}'.format(prime_words))
+    print('call_model gen_length: {}'.format(gen_length))
 
     loaded_graph = tf.Graph()
     with tf.Session(graph=loaded_graph) as sess:
+        final_chapter_text = ''
+
         # Load the saved model
         loader = tf.train.import_meta_graph(save_dir + '.meta')
         loader.restore(sess, save_dir)
@@ -33,31 +37,37 @@ def call_model(prime_words, gen_length):
         final_state = loaded_graph.get_tensor_by_name('final_state:0')
         probs = loaded_graph.get_tensor_by_name('probs:0')
 
-        # Sentences generation setup
-        gen_sentences = prime_words.split()
-        prev_state = sess.run(
-            initial_state, {input_text: np.array([[1 for word in gen_sentences]])})
+        for prime_word in prime_words.split(','):
+            if not prime_word in vocab_to_int:
+                prime_word = 'why'
 
-        # Generate sentences
-        for n in range(gen_length):
-            # Dynamic Input
-            dyn_input = [[vocab_to_int[word]
-                          for word in gen_sentences[-seq_length:] if word in vocab_to_int]]
-            dyn_seq_length = len(dyn_input[0])
+            # Sentences generation setup
+            gen_sentences = prime_word.split()
+            prev_state = sess.run(
+                initial_state, {input_text: np.array([[1 for word in gen_sentences]])})
 
-            # Get Prediction
-            probabilities, prev_state = sess.run(
-                [probs, final_state],
-                {input_text: dyn_input, initial_state: prev_state})
+            # Generate sentences
+            for n in range(gen_length):
+                # Dynamic Input
+                dyn_input = [[vocab_to_int[word]
+                              for word in gen_sentences[-seq_length:] if word in vocab_to_int]]
+                dyn_seq_length = len(dyn_input[0])
 
-            pred_word = pick_word(
-                probabilities[0][dyn_seq_length-1], int_to_vocab)
+                # Get Prediction
+                probabilities, prev_state = sess.run(
+                    [probs, final_state],
+                    {input_text: dyn_input, initial_state: prev_state})
 
-            gen_sentences.append(pred_word)
+                pred_word = pick_word(
+                    probabilities[0][dyn_seq_length-1], int_to_vocab)
 
-        # Remove tokens
-        chapter_text = ' '.join(gen_sentences)
-        for key, token in token_dict.items():
-            chapter_text = chapter_text.replace(' ' + token.lower(), key)
+                gen_sentences.append(pred_word)
 
-        return chapter_text
+            # Remove tokens
+            chapter_text = ' '.join(gen_sentences)
+            for key, token in token_dict.items():
+                chapter_text = chapter_text.replace(' ' + token.lower(), key)
+
+            final_chapter_text += chapter_text
+
+        return final_chapter_text

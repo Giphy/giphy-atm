@@ -21,11 +21,11 @@ def generate_poem():
         abort(400)
 
     giphy_client = GiphyClient()
-    list_of_tags = giphy_client.get_search_tags(query)
-    poem_string = ", ".join(list_of_tags)
+    list_of_tags = giphy_client.get_search_tags(query)[:5]
+    poem_string = ",".join(list_of_tags)
 
     poem_instance = PoemService()
-    poem = poem_instance.pass_query_to_model(poem_string, 25)
+    poem = poem_instance.pass_query_to_model(poem_string, 10)
 
     return jsonify({"data": poem})
 
