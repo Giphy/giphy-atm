@@ -30,7 +30,7 @@ class GiphyClient(object):
     def get_search_tags(self, query):
         response = requests.get(self.url, params={
             "api_key": self.api_key, "q": query, "limit": 25})
-        gifs = query
+        gifs = json.loads(response.content)['data']
         list_of_tags = []
         list_of_tags = self.get_all_tags(gifs)
         cleaned_tags = self.clean_list_of_tags(list_of_tags, query)

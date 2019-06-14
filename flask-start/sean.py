@@ -2,10 +2,10 @@ import pickle
 import tensorflow as tf
 import numpy as np
 
-save_dir = '/code/flask-start/models/whitman/'
+save_dir = '/code/flask-start/models/whitman/save'
 corpus_int, vocab_to_int, int_to_vocab, token_dict = pickle.load(
     open('/code/flask-start/models/whitman/preprocess.p', mode='rb'))
-seq_length, save_dir = pickle.load(
+seq_length, _ = pickle.load(
     open('/code/flask-start/models/whitman/params.p', mode='rb'))
 
 
