@@ -40,7 +40,7 @@ def call_model(prime_words, gen_length):
 
         for prime_word in prime_words.split(','):
             if not prime_word in vocab_to_int:
-                prime_word = random.choice(['Why', 'And', 'So,', 'So it is,', 'Again'])
+                prime_word = random.choice(['Why', 'And', 'So,', 'Again'])
 
             # Sentences generation setup
             gen_sentences = prime_word.split()
