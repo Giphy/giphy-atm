@@ -21,7 +21,7 @@ def generate_poem():
         abort(400)
 
     giphy_client = GiphyClient()
-    list_of_tags = giphy_client.get_search_tags(query)[:5]
+    list_of_tags = [query] + giphy_client.get_search_tags(query)[:4]
     poem_string = ",".join(list_of_tags)
 
     poem_instance = PoemService()

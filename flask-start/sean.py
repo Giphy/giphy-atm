@@ -1,6 +1,7 @@
 import pickle
 import tensorflow as tf
 import numpy as np
+import random
 
 save_dir = '/code/flask-start/models/whitman/save'
 corpus_int, vocab_to_int, int_to_vocab, token_dict = pickle.load(
@@ -39,7 +40,7 @@ def call_model(prime_words, gen_length):
 
         for prime_word in prime_words.split(','):
             if not prime_word in vocab_to_int:
-                prime_word = 'why'
+                prime_word = random.choice(['Why', 'And', 'So,', 'So it is,', 'Again'])
 
             # Sentences generation setup
             gen_sentences = prime_word.split()
