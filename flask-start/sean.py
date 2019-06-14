@@ -2,11 +2,11 @@ import pickle
 import tensorflow as tf
 import numpy as np
 
-save_dir = './models/whitman/'
+save_dir = '/code/flask-start/models/whitman/'
 corpus_int, vocab_to_int, int_to_vocab, token_dict = pickle.load(
-    open('./models/whitman/preprocess.p', mode='rb'))
+    open('/code/flask-start/models/whitman/preprocess.p', mode='rb'))
 seq_length, save_dir = pickle.load(
-    open('./models/whitman/params.p', mode='rb'))
+    open('/code/flask-start/models/whitman/params.p', mode='rb'))
 
 
 def pick_word(probabilities, int_to_vocab):
