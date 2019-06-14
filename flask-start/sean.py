@@ -51,7 +51,7 @@ def call_model(prime_words, gen_length):
                 {input_text: dyn_input, initial_state: prev_state})
 
             pred_word = pick_word(
-                probabilities[dyn_seq_length-1], int_to_vocab)
+                probabilities[0][dyn_seq_length-1], int_to_vocab)
 
             gen_sentences.append(pred_word)
 

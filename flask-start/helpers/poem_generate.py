@@ -6,4 +6,4 @@ class PoemService(object):
         self.path_to_file = ""
 
     def pass_query_to_model(self, query, length):
-        call_model(query, length)
+        return call_model(query, length)
