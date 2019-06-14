@@ -21,7 +21,7 @@ def generate_poem():
         abort(400)
 
     giphy_client = GiphyClient()
-    # list_of_tags = giphy_client.get_search_tags(query)
+    list_of_tags = giphy_client.get_search_tags(query)
 
     poem_instance = PoemService()
     poem = poem_instance.pass_query_to_model(query, 25)

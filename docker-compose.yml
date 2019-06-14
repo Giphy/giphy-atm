@@ -12,5 +12,5 @@ services:
             - |
                 pip install flask
                 pip install requests
-                pip install tensorflow==1.0.0
+                pip install tensorflow==1.12.0
                 python /code/flask-start/app.py
