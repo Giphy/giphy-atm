@@ -26,7 +26,7 @@ def generate_poem():
 
     poem_instance = PoemService()
     poem = poem_instance.pass_query_to_model(poem_string, 10)
-    poem = '{}:\n\n{}'.format(query, poem)
+    poem = '{}:\n\n{}'.format(query.upper(), poem)
 
     return jsonify({"data": poem})
 

@@ -40,7 +40,7 @@ def call_model(prime_words, gen_length):
 
         for prime_word in prime_words.split(','):
             if not prime_word in vocab_to_int:
-                prime_word = random.choice(['Why', 'And', 'So,', 'Again'])
+                prime_word = random.choice(['why', 'and', 'so', 'again'])
 
             # Sentences generation setup
             gen_sentences = prime_word.split()
@@ -69,6 +69,6 @@ def call_model(prime_words, gen_length):
             for key, token in token_dict.items():
                 chapter_text = chapter_text.replace(' ' + token.lower(), key)
 
-            final_chapter_text += '\n{}'.format(chapter_text)
+            final_chapter_text += '\n{}'.format(chapter_text.capitalize())
 
         return final_chapter_text
