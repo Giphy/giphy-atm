@@ -68,6 +68,6 @@ def call_model(prime_words, gen_length):
             for key, token in token_dict.items():
                 chapter_text = chapter_text.replace(' ' + token.lower(), key)
 
-            final_chapter_text += chapter_text
+            final_chapter_text += '\n{}'.format(chapter_text)
 
         return final_chapter_text
