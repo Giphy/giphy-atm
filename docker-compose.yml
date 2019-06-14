@@ -1,6 +1,8 @@
 version: '3'
 services:
     giphyatm:
+        tty: True
+        stdin_open: True
         image: python:3.5
         volumes:
             - .:/code:cached
@@ -10,6 +12,7 @@ services:
             - /bin/bash
             - -c
             - |
+                pip install pdb
                 pip install flask
                 pip install requests
                 pip install tensorflow==1.12.0
