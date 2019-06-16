@@ -7,10 +7,11 @@ import logging
 import json
 import requests
 
-from helpers.poem_generate import PoemService
+from helpers.poem_service import PoemService
 from helpers.giphy_client import GiphyClient
 
 app = Flask(__name__)
+poem_service = PoemService()
 
 
 @app.route('/poem', methods=['GET'])
@@ -24,8 +25,24 @@ def generate_poem():
     list_of_tags = [query] + giphy_client.get_search_tags(query)[:4]
     poem_string = ",".join(list_of_tags)
 
-    poem_instance = PoemService()
-    poem = poem_instance.pass_query_to_model(poem_string, 10)
+    poem = poem_service.pass_query_to_model(poem_string, 10)
+    poem = '{}:\n\n{}'.format(query, poem)
+
+    return jsonify({"data": poem})
+
+
+@app.route('/poem_old', methods=['GET'])
+def generate_old_poem():
+    query = request.args.get('query')
+
+    if not query:
+        abort(400)
+
+    giphy_client = GiphyClient()
+    list_of_tags = [query] + giphy_client.get_search_tags(query)[:4]
+    poem_string = ",".join(list_of_tags)
+
+    poem = poem_service.pass_query_to_old_model(poem_string, 10)
     poem = '{}:\n\n{}'.format(query, poem)
 
     return jsonify({"data": poem})

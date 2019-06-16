@@ -12,7 +12,6 @@ services:
             - /bin/bash
             - -c
             - |
-                pip install pdb
                 pip install flask
                 pip install requests
                 pip install tensorflow==1.12.0
