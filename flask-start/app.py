@@ -26,7 +26,7 @@ def generate_poem():
     poem_string = ",".join(list_of_tags)
 
     poem = poem_service.pass_query_to_model(poem_string, 10)
-    poem = '{}:\n{}'.format(query, poem)
+    poem = '{}:\n{}'.format(query.upper(), poem)
 
     return jsonify({"data": poem})
 
@@ -43,7 +43,7 @@ def generate_old_poem():
     poem_string = ",".join(list_of_tags)
 
     poem = poem_service.pass_query_to_old_model(poem_string, 10)
-    poem = '{}:\n{}'.format(query, poem)
+    poem = '{}:\n{}'.format(query.upper(), poem)
 
     return jsonify({"data": poem})
 
