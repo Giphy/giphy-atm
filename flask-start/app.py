@@ -22,11 +22,11 @@ def generate_poem():
         abort(400)
 
     giphy_client = GiphyClient()
-    list_of_tags = [query] + giphy_client.get_search_tags(query)[:4]
+    list_of_tags = giphy_client.get_search_tags(query)
     poem_string = ",".join(list_of_tags)
 
     poem = poem_service.pass_query_to_model(poem_string, 10)
-    poem = '{}:\n\n{}'.format(query, poem)
+    poem = '{}:\n{}'.format(query, poem)
 
     return jsonify({"data": poem})
 
@@ -39,11 +39,11 @@ def generate_old_poem():
         abort(400)
 
     giphy_client = GiphyClient()
-    list_of_tags = [query] + giphy_client.get_search_tags(query)[:4]
+    list_of_tags = [query] + giphy_client.get_search_tags(query, old_model=True)[:4]
     poem_string = ",".join(list_of_tags)
 
     poem = poem_service.pass_query_to_old_model(poem_string, 10)
-    poem = '{}:\n\n{}'.format(query, poem)
+    poem = '{}:\n{}'.format(query, poem)
 
     return jsonify({"data": poem})
 

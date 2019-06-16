@@ -2,7 +2,7 @@ import requests
 import sys
 
 
-query = sys.argv[0]
+query = sys.argv[1]
 
 print("OLD MODEL:\n")
 r = requests.get('http://localhost:9000/poem_old?query={}'.format(query))

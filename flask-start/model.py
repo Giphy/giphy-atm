@@ -4,6 +4,10 @@ import numpy as np
 import random
 
 
+_, vocab_to_int, _, _ = pickle.load(
+        open('/code/flask-start/models/whitman/epochs_10k/preprocess.p', mode='rb'))
+
+
 class RNNModel(object):
     @staticmethod
     def pick_word(probabilities, int_to_vocab):
@@ -37,8 +41,6 @@ class RNNModel(object):
             for prime_word in prime_words.split(','):
                 if not prime_word in self.vocab_to_int:
                     prime_word = random.choice(['why', 'and', 'so', 'again'])
-
-                print('PRIME WORD: {}'.format(prime_word))
 
                 # Sentences generation setup
                 gen_sentences = prime_word.split()
