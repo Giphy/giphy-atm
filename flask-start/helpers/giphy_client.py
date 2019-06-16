@@ -14,7 +14,6 @@ class GiphyClient(object):
         return [tag for tag in tags if tag != '' and query not in tag]
 
     def get_all_tags(self, gifs):
-
         tags = []
         for gif in gifs['data']:
             for tag in gif['tags']:
@@ -47,7 +46,6 @@ class GiphyClient(object):
             "api_key": self.api_key, "q": query, "limit": 25})
         gifs = json.loads(response.content.decode('utf-8'))
 
-        list_of_tags = []
         list_of_tags = self.get_all_tags(gifs)
         cleaned_tags = self.clean_list_of_tags(list_of_tags, query)
 

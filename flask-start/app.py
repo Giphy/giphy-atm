@@ -2,6 +2,7 @@ from flask import Flask, request, redirect, abort, jsonify, \
     url_for, flash
 
 import random
+from random import shuffle
 import string
 import logging
 import json
@@ -23,6 +24,7 @@ def generate_poem():
 
     giphy_client = GiphyClient()
     list_of_tags = giphy_client.get_search_tags(query)
+    shuffle(list_of_tags)
     poem_string = ",".join(list_of_tags)
 
     poem = poem_service.pass_query_to_model(poem_string, 10)
